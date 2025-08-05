@@ -1,7 +1,6 @@
 variable "project_id" {
   description = "The ID of the project in which to provision resources."
   type        = string
-  default     = "ibc-september"
 }
 
 // Marketplace requires this variable name to be declared
