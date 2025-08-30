@@ -20,8 +20,8 @@ spec:
           name: source_image
           title: Image version
           enumValueLabels:
-            - label: norsk-studio-byol-debian-12-x86-64-2025-07-29
-              value: projects/id3as-public/global/images/norsk-studio-byol-debian-12-x86-64-2025-07-29
+            - label: norsk-studio-byol-debian-12-x86-64-2025-05-13
+              value: projects/id3as-public/global/images/norsk-studio-byol-debian-12-x86-64-2025-05-13
           xGoogleProperty:
             type: ET_GCE_DISK_IMAGE
         machine_type:

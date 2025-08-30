@@ -8,7 +8,7 @@ metadata:
 spec:
   info:
     title: Google Cloud Marketplace Terraform Module
-    version: 1.0.402
+    version: 1.0.401
     actuationTool:
       flavor: Terraform
       version: ">= 1.2"
@@ -20,9 +20,9 @@ spec:
             version: "12"
       - software:
           - title: norsk-studio
-            version: "1.0.402"
+            version: "1.0.401"
           - title: norsk
-            version: "1.0.402"
+            version: "1.0.401"
           - title: nginx
             version: "1.27.4"
           - title: oauth2-proxy
@@ -43,7 +43,7 @@ spec:
       - name: source_image
         description: The image name for the disk for the VM instance.
         varType: string
-        defaultValue: projects/id3as-public/global/images/norsk-studio-byol-debian-12-x86-64-2025-07-29
+        defaultValue: projects/id3as-public/global/images/norsk-studio-byol-debian-12-x86-64-2025-05-13
       - name: zone
         description: The zone for the solution to be deployed.
         varType: string

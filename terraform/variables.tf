@@ -1,20 +1,40 @@
 variable "project_id" {
   description = "The ID of the project in which to provision resources."
   type        = string
-  default     = "ibc-september"
 }
 
-// Marketplace requires this variable name to be declared
+# Relevant when running on a system where no default network exists yet
+variable "create_default_network" {
+  type        = bool
+  default     = false
+  description = "Whether to create a default network with subnets for all regions"
+}
+
+variable "instance_count" {
+  description = "The number of Norsk instances we need"
+  type        = string
+  default     = "5"
+}
+
+### Norsk required variables here on out
+
+# Marketplace requires this variable name to be declared
 variable "goog_cm_deployment_name" {
   description = "The name of the deployment and VM instance."
   type        = string
-  default     = "ibc-ghack-norsk-streams"
+  default     = "norsk-streams"
 }
 
 variable "source_image" {
   description = "The image name for the disk for the VM instance."
   type        = string
   default     = "projects/id3as-public/global/images/norsk-studio-byol-alpha-debian-12-x86-64-2025-08-18"
+}
+
+variable "region" {
+  type        = string
+  description = "Region to create resources in."
+  default     = "europe-west4"
 }
 
 variable "zone" {
@@ -148,3 +168,4 @@ variable "certbot_email" {
   type        = string
   default     = "chanka-norsk@google.com"
 }
+

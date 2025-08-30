@@ -1,55 +1,20 @@
-# Live Simulation Environment - Media on Google Cloud gHack
+# Google Cloud Marketplace Terraform Module
 
-This repository holds the code and configuration needed to stand up a live simulation environment in support of the [Media on Google Cloud gHack](ghacks.dev/hacks/media-on-gcp)
+This module deploys a product from Google Cloud Marketplace.
 
-## Technology Used
-- Norsk: Live Streaming Workflow Engine
-- Google Compute Engine
-
-## Prerequisites 
-### Terraform
-
-Be sure you have the correct Terraform version (1.2.0+) installed.
-
-### Configure a Google Cloud Service Account
-In order to execute this module you must have a Service Account with the following project roles:
-
-- `roles/compute.admin`
-- `roles/iam.serviceAccountUser`
-
-If you are using a shared VPC:
-
-- `roles/compute.networkAdmin` is required on the Shared VPC host project.
-
-### Enable APIs
-In order to operate with the Service Account you must activate the following APIs on the same project. **NOTE**: Substitute your real project id here.
+## Usage
+The provided test configuration can be used by executing:
 
 ```
-gcloud services enable compute.googleapis.com --project my-live-sim
+terraform plan --var-file marketplace_test.tfvars --var project_id=<YOUR_PROJECT>
 ```
 
-## Provision Live Simulation Environment
-
-Provision your project using the following Terraform commands. **NOTE:** Be sure to substitute the right variables to match your environment.
-
-```
-terraform init
-terraform apply \
-  -var 'project_id=my-live-sim' \
-  -var 'zone=europe-west4-a'
-```
-
-### Table of Terraform Variables
-
-This table is the full list of variables in `variables.tf`. In our case, the default will work except for what is shown above.
-
-#### Inputs
-
+## Inputs
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|----------|
 | project_id | The ID of the project in which to provision resources. | `string` | `null` | yes |
 | goog_cm_deployment_name | The name of the deployment and VM instance. | `string` | `null` | yes |
-| source_image | The image name for the disk for the VM instance. | `string` | `"projects/id3as-public/global/images/norsk-studio-byol-debian-12-x86-64-2025-07-29"` | no |
+| source_image | The image name for the disk for the VM instance. | `string` | `"projects/id3as-public/global/images/norsk-studio-byol-debian-12-x86-64-2025-05-13"` | no |
 | zone | The zone for the solution to be deployed. | `string` | `"us-central1-a"` | no |
 | machine_type | The machine type to create, e.g. e2-small | `string` | `"e2-standard-8"` | no |
 | boot_disk_type | The boot disk type for the VM instance. | `string` | `"pd-balanced"` | no |
@@ -73,7 +38,7 @@ This table is the full list of variables in `variables.tf`. In our case, the def
 | domain_name | The domain name that you will access this Norsk Studio deployment through, which you must set up through your DNS provider to point to the VM instance. | `string` | `null` | no |
 | certbot_email | The email where you will receive HTTPS certificate expiration notices from Let's Encrypt. | `string` | `null` | no |
 
-#### Outputs
+## Outputs
 
 | Name | Description |
 |------|-------------|
@@ -85,3 +50,25 @@ This table is the full list of variables in `variables.tf`. In our case, the def
 | instance_machine_type | Machine type for the compute instance. |
 | instance_nat_ip | External IP of the compute instance. |
 | instance_network | Self-link for the network of the compute instance. |
+
+## Requirements
+### Terraform
+
+Be sure you have the correct Terraform version (1.2.0+), you can choose the binary here:
+
+https://releases.hashicorp.com/terraform/
+
+### Configure a Service Account
+In order to execute this module you must have a Service Account with the following project roles:
+
+- `roles/compute.admin`
+- `roles/iam.serviceAccountUser`
+
+If you are using a shared VPC:
+
+- `roles/compute.networkAdmin` is required on the Shared VPC host project.
+
+### Enable API
+In order to operate with the Service Account you must activate the following APIs on the project where the Service Account was created:
+
+- Compute Engine API - `compute.googleapis.com`

@@ -1,26 +1,36 @@
 variable "project_id" {
   description = "The ID of the project in which to provision resources."
   type        = string
-  default     = "ibc-september"
 }
 
-// Marketplace requires this variable name to be declared
-variable "goog_cm_deployment_name" {
-  description = "The name of the deployment and VM instance."
+variable "region" {
+  description = "The GCP region to deploy resources in."
   type        = string
-  default     = "ibc-ghack-norsk-streams"
-}
-
-variable "source_image" {
-  description = "The image name for the disk for the VM instance."
-  type        = string
-  default     = "projects/id3as-public/global/images/norsk-studio-byol-alpha-debian-12-x86-64-2025-08-18"
 }
 
 variable "zone" {
   description = "The zone for the solution to be deployed."
   type        = string
-  default     = "europe-west4-a"
+}
+
+variable "instance_count" {
+  description = "The number of Norsk instances we need"
+  type        = string
+}
+
+### Norsk required variables here on out
+
+// Marketplace requires this variable name to be declared
+variable "goog_cm_deployment_name" {
+  description = "The name of the deployment and VM instance."
+  type        = string
+  default     = "norsk-gw"
+}
+
+variable "source_image" {
+  description = "The image name for the disk for the VM instance."
+  type        = string
+  default     = "projects/media-on-gcp-storage/global/images/norsk-image-ibc-alpha-debian-12-x86-64-2025-08-29"
 }
 
 variable "machine_type" {
@@ -38,7 +48,7 @@ variable "boot_disk_type" {
 variable "boot_disk_size" {
   description = "The boot disk size for the VM instance in GBs"
   type        = number
-  default     = 50
+  default     = 100
 }
 
 variable "networks" {
@@ -114,28 +124,18 @@ variable "udp_3478_source_ranges" {
 }
 
 variable "enable_udp_5001" {
-  description = "Allow UDP port 5001-5200 traffic (example SRT port) from the Internet"
+  description = "Allow UDP port 5001 traffic (example SRT port) from the Internet"
   type        = bool
   default     = true
 }
 
 variable "udp_5001_source_ranges" {
-  description = "Source IP ranges for UDP port 5001-5200 traffic"
+  description = "Source IP ranges for UDP port 5001 traffic"
   type        = string
   default     = ""
 }
 
-variable "accelerator_type" {
-  description = "The accelerator type resource exposed to this instance. E.g. nvidia-tesla-p100."
-  type        = string
-  default     = "nvidia-tesla-p100"
-}
 
-variable "accelerator_count" {
-  description = "The number of the guest accelerator cards exposed to this instance."
-  type        = number
-  default     = 0
-}
 
 variable "domain_name" {
   description = "The domain name that you will access this Norsk Studio deployment through, which you must set up through your DNS provider to point to the VM instance."
@@ -146,5 +146,5 @@ variable "domain_name" {
 variable "certbot_email" {
   description = "The email where you will receive HTTPS certificate expiration notices from Let's Encrypt."
   type        = string
-  default     = "chanka-norsk@google.com"
+  default     = "chanka@google.com"
 }
