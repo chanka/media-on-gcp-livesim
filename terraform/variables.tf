@@ -1,14 +1,13 @@
 variable "project_id" {
   description = "The ID of the project in which to provision resources."
   type        = string
-  default     = "ibc-september"
 }
 
 // Marketplace requires this variable name to be declared
 variable "goog_cm_deployment_name" {
   description = "The name of the deployment and VM instance."
   type        = string
-  default     = "ibc-ghack-norsk-streams"
+  default     = "norsk-streams"
 }
 
 variable "source_image" {
