@@ -105,7 +105,7 @@ components:
   - type: output.srt-listener
     config:
       displayName: srt-listener-ls2-cam1
-      port: 5121
+      port: 5131
       host: 0.0.0.0
       jitterBuffer:
         startupMode: queueAndEase

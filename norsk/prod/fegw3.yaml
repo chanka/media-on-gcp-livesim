@@ -69,7 +69,7 @@ components:
   - type: output.srt-listener
     config:
       displayName: srt-listener-ls2-cam3
-      port: 5123
+      port: 5133
       host: 0.0.0.0
       jitterBuffer:
         startupMode: queueAndEase
