@@ -1,0 +1,129 @@
+__layout:
+  - id: srt-caller-ls1-cam4
+    x: -800
+    y: -256
+  - id: preview-ls1-cam4
+    x: 0
+    y: -304
+  - id: srt-caller-ls2-cam4
+    x: -720
+    y: 176
+  - id: preview-ls2-cam4
+    x: -16
+    y: 160
+  - id: srt-listener-ls1-cam4
+    x: -304
+    y: 16
+  - id: srt-listener-ls2-cam4
+    x: -336
+    y: 384
+__globalConfig: {}
+components:
+  - type: input.srt-caller
+    config:
+      displayName: srt-caller-ls1-cam4
+      port: 5104
+      host: 10.164.0.7
+      passphrase: ""
+      streamId: ""
+      socketOptions: {}
+      notes: ""
+      id: srt-caller-ls1-cam4
+    subscriptions: []
+  - type: output.preview
+    config:
+      displayName: preview-ls1-cam4
+      previewMode: image
+      showPreview: true
+      jitterBuffer:
+        startupMode: queueAndEase
+        bufferDelayMs: 500
+      notes: ""
+      makeProgram: true
+      id: preview-ls1-cam4
+    subscriptions:
+      - source: srt-caller-ls1-cam4
+        streams:
+          type: take-first-stream
+          filter:
+            - media: video
+            - media: audio
+  - type: input.srt-caller
+    config:
+      displayName: srt-caller-ls2-cam4
+      port: 5124
+      host: 10.164.0.2
+      passphrase: ""
+      streamId: ""
+      socketOptions: {}
+      notes: ""
+      id: srt-caller-ls2-cam4
+    subscriptions: []
+  - type: output.preview
+    config:
+      displayName: preview-ls2-cam4
+      previewMode: image
+      showPreview: true
+      jitterBuffer:
+        startupMode: queueAndEase
+        bufferDelayMs: 500
+      notes: ""
+      makeProgram: true
+      id: preview-ls2-cam4
+    subscriptions:
+      - source: srt-caller-ls2-cam4
+        streams:
+          type: take-first-stream
+          filter:
+            - media: video
+            - media: audio
+  - type: output.srt-listener
+    config:
+      displayName: srt-listener-ls1-cam4
+      port: 5114
+      host: 0.0.0.0
+      jitterBuffer:
+        startupMode: queueAndEase
+        bufferDelayMs: 500
+      avDelayMs: 50
+      writeThroughFile:
+        rollover:
+          type: none
+      passphrase: ""
+      streamId: ""
+      socketOptions: {}
+      notes: ""
+      makeProgram: true
+      id: srt-listener-ls1-cam4
+    subscriptions:
+      - source: srt-caller-ls1-cam4
+        streams:
+          type: take-all-streams
+          filter:
+            - media: video
+            - media: audio
+  - type: output.srt-listener
+    config:
+      displayName: srt-listener-ls2-cam4
+      port: 5124
+      host: 0.0.0.0
+      jitterBuffer:
+        startupMode: queueAndEase
+        bufferDelayMs: 500
+      avDelayMs: 50
+      writeThroughFile:
+        rollover:
+          type: none
+      passphrase: ""
+      streamId: ""
+      socketOptions: {}
+      notes: ""
+      makeProgram: true
+      id: srt-listener-ls2-cam4
+    subscriptions:
+      - source: srt-caller-ls2-cam4
+        streams:
+          type: take-all-streams
+          filter:
+            - media: video
+            - media: audio

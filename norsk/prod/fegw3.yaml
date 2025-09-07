@@ -1,0 +1,129 @@
+__layout:
+  - id: srt-caller-ls2-cam4
+    x: -800
+    y: 160
+  - id: srt-caller-ls1-cam3
+    x: -800
+    y: -208
+  - id: srt-listener-ls1-cam3
+    x: -288
+    y: -16
+  - id: srt-listener-ls2-cam3
+    x: -320
+    y: 352
+  - id: preview-ls1-cam3
+    x: 0
+    y: -304
+  - id: preview-ls2-cam3
+    x: -16
+    y: 160
+__globalConfig: {}
+components:
+  - type: input.srt-caller
+    config:
+      displayName: srt-caller-ls2-cam4
+      port: 5123
+      host: 10.164.0.2
+      passphrase: ""
+      streamId: ""
+      socketOptions: {}
+      notes: ""
+      id: srt-caller-ls2-cam4
+    subscriptions: []
+  - type: input.srt-caller
+    config:
+      displayName: srt-caller-ls1-cam3
+      port: 5103
+      host: 10.164.0.7
+      passphrase: ""
+      streamId: ""
+      socketOptions: {}
+      notes: ""
+      id: srt-caller-ls1-cam3
+    subscriptions: []
+  - type: output.srt-listener
+    config:
+      displayName: srt-listener-ls1-cam3
+      port: 5113
+      host: 0.0.0.0
+      jitterBuffer:
+        startupMode: queueAndEase
+        bufferDelayMs: 500
+      avDelayMs: 50
+      writeThroughFile:
+        rollover:
+          type: none
+      passphrase: ""
+      streamId: ""
+      socketOptions: {}
+      notes: ""
+      makeProgram: true
+      id: srt-listener-ls1-cam3
+    subscriptions:
+      - source: srt-caller-ls1-cam3
+        streams:
+          type: take-all-streams
+          filter:
+            - media: video
+            - media: audio
+  - type: output.srt-listener
+    config:
+      displayName: srt-listener-ls2-cam3
+      port: 5123
+      host: 0.0.0.0
+      jitterBuffer:
+        startupMode: queueAndEase
+        bufferDelayMs: 500
+      avDelayMs: 50
+      writeThroughFile:
+        rollover:
+          type: none
+      passphrase: ""
+      streamId: ""
+      socketOptions: {}
+      notes: ""
+      makeProgram: true
+      id: srt-listener-ls2-cam3
+    subscriptions:
+      - source: srt-caller-ls2-cam4
+        streams:
+          type: take-all-streams
+          filter:
+            - media: video
+            - media: audio
+  - type: output.preview
+    config:
+      displayName: preview-ls1-cam3
+      previewMode: image
+      showPreview: true
+      jitterBuffer:
+        startupMode: queueAndEase
+        bufferDelayMs: 500
+      notes: ""
+      makeProgram: true
+      id: preview-ls1-cam3
+    subscriptions:
+      - source: srt-caller-ls1-cam3
+        streams:
+          type: take-first-stream
+          filter:
+            - media: video
+            - media: audio
+  - type: output.preview
+    config:
+      displayName: preview-ls2-cam3
+      previewMode: image
+      showPreview: true
+      jitterBuffer:
+        startupMode: queueAndEase
+        bufferDelayMs: 500
+      notes: ""
+      makeProgram: true
+      id: preview-ls2-cam3
+    subscriptions:
+      - source: srt-caller-ls2-cam4
+        streams:
+          type: take-first-stream
+          filter:
+            - media: video
+            - media: audio
